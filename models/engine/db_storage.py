@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.user import User
 from models.place import Place
+from models.review import Review
 
 
 class DBStorage:
@@ -39,7 +40,7 @@ class DBStorage:
         """
         obj_dict = {}
         if cls is None:
-            all_cls = (State, City, User, Place)
+            all_cls = (State, City, User, Place, Review)
             for cls in all_cls:
                 for obj in self.__session.query(cls):
                     key = "{}.{}".format(cls.__class__.__name__, obj.id)
