@@ -11,6 +11,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -241,14 +242,13 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            #for k, v in storage._FileStorage__objects.items():
-                #if k.split('.')[0] == args:
-            for k, v in storage.all(HBNBCommand.classes[args]).items():
-                print_list.append(str(v))
+            for k, v in models.storage.all(HBNBCommand.classes[args]).items():
+                if k != '_sa_instance_state':
+                    print_list.append(str(v))
         else:
-            for k, v in storage.all().items():
-            #for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            for k, v in models.storage.all().items():
+                if k != '_sa_instance_state':
+                    print_list.append(str(v))
 
         print(print_list)
 

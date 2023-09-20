@@ -38,8 +38,9 @@ class BaseModel:
                 kwargs['created_at'] = datetime.\
                                         strptime(kwargs['created_at'],
                                                  '%Y-%m-%dT%H:%M:%S.%f')
-            #if '__class__' in kwargs:
+            # if '__class__' in kwargs:
             del kwargs['__class__']
+            del kwargs['_sa_instance_state']
             self.__dict__.update(kwargs)
 
     def __str__(self):
@@ -57,9 +58,11 @@ class BaseModel:
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
+
+        for key, value in self.__dict__.items():
+            if key != '_sa_instance_state':
+                dictionary[key] = value
+        dictionary['__class__'] = type(self).__name__
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         if '_sa_instance_state' in dictionary:
