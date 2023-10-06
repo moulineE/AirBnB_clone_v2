@@ -33,6 +33,7 @@ def do_deploy(archive_path):
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s /data/web_static/releases/{} /data/web_static/current".
             format(tar_name_WO_ext))
+        print('New version deployed!')
         return (True)
     except Exception:
         return (False)
