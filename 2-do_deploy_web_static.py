@@ -7,7 +7,7 @@ from fabric.api import *
 import os
 
 env.hosts = [
-    '54.236.44.154',
+    '100.26.9.80',
     '54.237.5.182',
 ]
 
@@ -25,8 +25,8 @@ def do_deploy(archive_path):
         run("sudo tar xzf /tmp/{} -C /data/web_static/releases/{}".
             format(tar_f_name, tar_name_WO_ext))
         run("sudo rm /tmp/{}".format(tar_f_name))
-        run("sudo mv /data/web_static/releases/{}/\
-             web_static/* /data/web_static/releases/{}".
+        run("sudo mv /data/web_static/releases/{}/web_static/* \
+                /data/web_static/releases/{}".
             format(tar_name_WO_ext, tar_name_WO_ext))
         run("sudo rm -rf /data/web_static/releases/{}/web_static".
             format(tar_name_WO_ext))
