@@ -3,7 +3,7 @@
 a Fabric script (based on the file 1-pack_web_static.py) that distributes
 an archive to your web servers, using the function do_deploy:
 """
-from fabric.api import *
+from fabric.api import put, run, env
 import os
 
 env.hosts = [
@@ -19,7 +19,7 @@ def do_deploy(archive_path):
     tar_f_name = archive_path.split("/")[-1]
     tar_name_WO_ext = tar_f_name.split(".")[0]
     try:
-        put(archive_path, "/tmp/")
+        put(archive_path, "/tmpiiii/")
         run("sudo mkdir -p /data/web_static/releases/{}".
             format(tar_name_WO_ext))
         run("sudo tar xzf /tmp/{} -C /data/web_static/releases/{}".
@@ -35,5 +35,5 @@ def do_deploy(archive_path):
             format(tar_name_WO_ext))
         print('New version deployed!')
         return (True)
-    except Exception:
+    except Exception as e:
         return (False)
