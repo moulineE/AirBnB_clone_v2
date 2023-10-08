@@ -64,11 +64,13 @@ def deploy():
 def do_clean(number=0):
     """a function that deletes out-of-date archives"""
     local_archlist = local('ls -1 --sort=time versions', capture=True)
-    if number is 0 or number is 1:
+    local_archlist = local_archlist.split("\n")
+    if int(number) is 0 or int(number) is 1:
         number = 1
     for archive in local_archlist[number:]:
         local('rm versions/{}'.format(archive))
     remot_arch_list = run('ls -1 --sort=time /data/web_static/\
             releases | grep web_static_')
+    remot_arch_list = remot_arch_list.split("\r\n")
     for remote_arch in remot_arch_list:
         run('rm -rf /data/web_static/releases/{}'.format(remote_arch))
