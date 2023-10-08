@@ -68,9 +68,9 @@ def do_clean(number=0):
     if int(number) is 0 or int(number) is 1:
         number = 1
     for archive in local_archlist[number:]:
-        local('rm versions/{}'.format(archive))
+        local('sudo rm versions/{}'.format(archive))
     remot_arch_list = run('ls -1 --sort=time /data/web_static/\
             releases | grep web_static_')
     remot_arch_list = remot_arch_list.split("\r\n")
-    for remote_arch in remot_arch_list:
-        run('rm -rf /data/web_static/releases/{}'.format(remote_arch))
+    for remote_arch in remot_arch_list[number:]:
+        run('sudo rm -rf /data/web_static/releases/{}'.format(remote_arch))
