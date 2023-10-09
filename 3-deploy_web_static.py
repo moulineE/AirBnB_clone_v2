@@ -28,7 +28,7 @@ def do_deploy(archive_path):
             format(tar_f_name, tar_name_WO_ext))
         run("sudo rm /tmp/{}".format(tar_f_name))
         run("sudo mv /data/web_static/releases/{}/web_static/* \
-                /data/web_static/releases/{}".
+/data/web_static/releases/{}".
             format(tar_name_WO_ext, tar_name_WO_ext))
         run("sudo rm -rf /data/web_static/releases/{}/web_static".
             format(tar_name_WO_ext))
@@ -50,7 +50,7 @@ def do_pack():
     if result.failed:
         return None
     else:
-        return print(tar_name)
+        return tar_name
 
 
 def deploy():
