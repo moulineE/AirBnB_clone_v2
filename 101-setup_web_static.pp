@@ -1,5 +1,30 @@
 # using Puppet, sets up my web servers for the deployment of web_static.
 
+$nginx_site_config = "server {
+        listen 80 default_server;
+        location /hbnb_static {
+                alias /data/web_static/current/;
+        }
+        add_header X-Served-By ${hostname};
+        error_page 404 /custom_404.html;
+        location = /custom_404.html {
+                root /usr/share/nginx/html;
+                internal;
+        }
+        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+        listen [::]:80 default_server;
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+}"
+
 exec { 'apt-get update':
   command => '/usr/bin/apt-get update',
   before  => Package['nginx'],
@@ -42,16 +67,14 @@ exec { 'change /data dir owner':
   before  => Exec['nginx restart'],
 }
 
-exec { 'setup nginx site':
-  command => @(CMD/L),
-	/usr/bin/env sed -i '/listen 80 default_server;/a \\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}'
-wrapped > /etc/nginx/sites-available/default
-	| CMD
+file { '/etc/nginx/sites-available/default':
+  ensure  => 'present',
+  content => $nginx_site_config,
   require => Exec['add test dir'],
   before  => Exec['nginx restart'],
 }
 
 exec { 'nginx restart':
   command => '/usr/bin/env service nginx restart',
-  require => Exec['setup nginx site'],
+  require => File['/etc/nginx/sites-available/default'],
 }
