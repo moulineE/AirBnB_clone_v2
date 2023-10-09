@@ -50,7 +50,7 @@ def do_pack():
     if result.failed:
         return None
     else:
-        return print(tar_name)
+        return tar_name
 
 
 def deploy():
@@ -67,6 +67,8 @@ def do_clean(number=0):
     local_archlist = local_archlist.split("\n")
     if int(number) is 0 or int(number) is 1:
         number = 1
+    else:
+        number = int(number)
     for archive in local_archlist[number:]:
         local('sudo rm versions/{}'.format(archive))
     remot_arch_list = run('ls -1 --sort=time /data/web_static/\
