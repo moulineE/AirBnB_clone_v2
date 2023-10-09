@@ -41,6 +41,7 @@ def do_deploy(archive_path):
         return (False)
 
 
+@runs_once
 def do_pack():
     """fuction that generates the .tgz archive"""
     local("mkdir -p versions")
@@ -65,7 +66,7 @@ def do_clean(number=0):
     """a function that deletes out-of-date archives"""
     local_archlist = local('ls -1 --sort=time versions', capture=True)
     local_archlist = local_archlist.split("\n")
-    if int(number) is 0 or int(number) is 1:
+    if int(number) == 0 or int(number) == 1:
         number = 1
     else:
         number = int(number)

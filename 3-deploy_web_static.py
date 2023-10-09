@@ -41,6 +41,7 @@ def do_deploy(archive_path):
         return (False)
 
 
+@runs_once
 def do_pack():
     """fuction that generates the .tgz archive"""
     local("mkdir -p versions")
