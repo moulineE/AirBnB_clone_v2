@@ -19,7 +19,7 @@ def do_deploy(archive_path):
     tar_f_name = archive_path.split("/")[-1]
     tar_name_WO_ext = tar_f_name.split(".")[0]
     try:
-        put(archive_path, "/tmpiiii/")
+        put(archive_path, "/tmp/")
         run("sudo mkdir -p /data/web_static/releases/{}".
             format(tar_name_WO_ext))
         run("sudo tar xzf /tmp/{} -C /data/web_static/releases/{}".

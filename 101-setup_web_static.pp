@@ -52,6 +52,6 @@ wrapped > /etc/nginx/sites-available/default
 }
 
 service { 'nginx':
-  restart => restart,
+  restart =>,
   require => Exec['setup nginx site']
 }
