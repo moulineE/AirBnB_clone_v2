@@ -11,5 +11,11 @@ def hello_HBNB():
     return "<p>Hello HBNB!</p>"
 
 
+@app.route("/", strict_slashes=False)
+def HBNB():
+    """display html 'HBNB'"""
+    return "<p>HBNB</p>"
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
