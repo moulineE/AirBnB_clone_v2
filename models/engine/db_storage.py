@@ -46,6 +46,7 @@ class DBStorage:
                     key = "{}.{}".format(cls.__class__.__name__, obj.id)
                     obj_dict[key] = obj
         else:
+            cls = eval(cls) if type(cls) == str else cls
             for obj in self.__session.query(cls):
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 if key != '_sa_instance_state':
